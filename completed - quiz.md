@@ -8,12 +8,12 @@ Quando hai finito di rispondere alle domande, effettua un commit dei tuoi cambia
 
 ------
 
-D1. Quale affermazione su GitHub Classroom Ë vero?
+D1. Quale affermazione su GitHub Classroom √® vero?
 
 1. GitHub Classroom fornisce un'interfaccia alternativa che gli studenti possono utilizzare, invece di utilizzare GitHub.
-2. GitHub Classroom Ë uno strumento rivolto agli insegnanti che utilizza le API di GitHub per abilitare il flusso di lavoro di GitHub for education.
-3. GitHub Classroom Ë un sito Web che fornisce corsi online per conoscere GitHub.
-4. GitHub Classroom Ë sviluppato da sviluppatori di terze parti ma utilizza le API di GitHub per integrarsi in GitHub.
+2. GitHub Classroom √® uno strumento rivolto agli insegnanti che utilizza le API di GitHub per abilitare il flusso di lavoro di GitHub for education.
+3. GitHub Classroom √® un sito Web che fornisce corsi online per conoscere GitHub.
+4. GitHub Classroom √® sviluppato da sviluppatori di terze parti ma utilizza le API di GitHub per integrarsi in GitHub.
 
 Risposta: 2
 ------
@@ -40,7 +40,7 @@ Risposta: 3
 
 ------
 
-D4. Quale funzionalit‡ di GitHub fornisce funzionalit‡ di automazione delle attivit‡ e di flusso di lavoro che possono essere utilizzate per implementare CI/CD?
+D4. Quale funzionalit√† di GitHub fornisce funzionalit√† di automazione delle attivit√† e di flusso di lavoro che possono essere utilizzate per implementare CI/CD?
 
 1. Forking
 2. Pages
