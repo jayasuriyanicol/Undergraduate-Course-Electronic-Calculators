@@ -1,0 +1,85 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/FDiUArk_)
+# :elevator: Sistema di controllo di un ascensore
+
+![](.github/templates/banner.png)
+
+<sup>Il disegno qui sopra illustra l'efficienza delle intelligenze artificiali nel risolvere questo esercizio. Così evitate di perderci tempo! :smile:</sup>
+
+<img alt="points bar" align="right" height="36" src="../../blob/status/.stats/points-bar.svg" />
+
+In questo compito, dovrete progettare e realizzare il sistema di controllo di un ascensore in un palazzo di 3 piani, cui si aggiunge il piano terra ed un ultimo *piano VIP*, descritto più in basso. L'ascensore può essere nei seguenti stati:
+
+- **Attesa**: l’ascensore aspetta che venga chiamato a un piano.
+- **Movimento verso l’alto o il basso**: l’ascensore è in movimento in una direzione specifica.
+- **Arresto**: l'ascensore si ferma all'arrivo ad un piano in cui è stata effettuata una prenotazione.
+- **Apertura porte**: le porte si aprono e restano aperte per *9 secondi*.
+
+Ad ogni piano è installato un sensore di arrivo che, quando rileva la presenza dell'ascensore, solleva un segnale $Ax$ per indicare che esso è arrivato al piano $x$.
+
+### Gestione delle chiamate ai piani e movimento
+
+Il passaggio ad un piano può essere prenotato sia dal piano stesso, sia dall'interno dell'ascensore, con l'apposita pulsantiera. È possibile prenotare il passaggio a qualsiasi piano in qualsiasi stato, anche mentre l'ascensore è in movimento. La chiamata ad un determinato piano viene bufferizzata in un elemento di memoria appositamente dedicato e permane nello stato di "richiesta effettuata" fino al momento in cui il l'ascensore arriva al piano coinvolto dalla richiesta.
+
+Se già in movimento, l'ascensore procede nel suo senso di marcia fino a quando non ha raggiunto l'ultimo piano per cui è presente una chiamata, in quella direzione. Ad esempio, se l'ascensore ha raggiunto il secondo piano in salita e sono presenti due chiamate, una al terzo ed una al primo, l'ascensore darà priorità al terzo piano poiché raggiungibile nello stesso senso di marcia.
+
+Viceversa, quando l'ascensore raggiunge un piano e sono unicamente presenti chiamate da piani raggiungibili nel senso di marcia opposto, esso invertirà il senso di marcia.
+
+Se, al momento della chiusura delle porte, non è presente alcuna chiamata, l'ascensore rimarrà  (a porte chiuse) nello stato di attesa. Se in tale stato l'ascensore riceve una chiamata dal piano in cui è presente, si limiterà ad aprire le porte.
+
+Questo funzionamento di base è modificato dall'ultimo (quarto) piano: il **piano VIP**. Se è stata ricevuta una richiesta di passaggio al piano VIP, se l'ascensore sta procedendo in quella direzione (quindi verso l'alto), *salterà tutte le altre fermate* fino al raggiungimento del piano VIP. Viceversa, se si sta muovendo in direzione opposta (quindi verso il basso), raggiungerà soltanto il prossimo piano per cui è stata ricevuta una richiesta di passaggio e poi invertirà il senso di marcia.
+
+## Codifiche
+
+L'ascensore deve tenere traccia dei seguenti stati, utilizzando le seguenti codifiche:
+
+-   **Stato di attesa**: $z2 = 0; z1 = 0; z0 = 0$;
+-   **Movimento verso l'alto**: $z2 = 0; z1 = 0; z0 = 1$;
+-   **Movimento verso il basso**: $z2 = 0; z1 = 1; z0 = 0$;
+-   **Porte aperte**: $z2 = 0; z1 = 1; z0 = 1$;
+-   **Arresto**: $z2 = 1; z1 = 0; z0 = 0$.
+
+Lo stato di arresto corrisponde al momento in cui l'ascensore arriva ad un piano per cui è stata richiesta la fermata, segnalato dal segnale $Ax$. Dopo essersi arrestato, l'ascensore dovrà aprire le porte e mantenerle aperte per 9 secondi.
+
+L'ascensore deve anche tenere traccia del piano in cui si trova in un determinato istante temporale. Per questo motivo, vengono utilizzate le seguenti variabili:
+
+-   **Piano T**: $y2 = 0; y1 = 0; y0 = 0$;
+-   **Piano 1**: $y2 = 0; y1 = 0; y0 = 1$;
+-   **Piano 2**: $y2 = 0; y1 = 1; y0 = 0$;
+-   **Piano 3**: $y2 = 0; y1 = 1; y0 = 1$;
+-   **Piano VIP**: $y2 = 1; y1 = 0; y0 = 0$;
+
+All'avvio del sistema si può assumere che l'ascensore si trovi al piano T nello stato di attesa.
+
+## Ingressi
+
+Gli ingressi al sistema di controllo dell'ascensore sono di due famiglie: la prima famiglia è costituita dai segnali $Ax$ precedentemente citati che vengono sollevati quando un ascensore raggiunge un piano. Tali segnali valgono 1 solo nel momento in cui l'ascensore è rilevato, per poi tornare a zero.
+
+La seconda famiglia è costituita dai segnali $Px$ che indicano la chiamata al piano $x$. Tali segnali valgono 1 soltanto quando il tasto di chiamata viene premuto, per poi tornare a zero. È quindi necessario bufferizzare tali segnali in modi da voi ritenuti opportuni.
+
+## Punteggi
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-doors.svg" />  :door: Gestione dell'apertura delle porte corretta |
+| :----------------------------------------------------------- |
+| Vengono assegnati **10 punti** se il sistema mantiene correttamente aperte le porte per 9 secondi, anche nel caso in cui la chiamata arrivi dallo stesso piano in cui si trova l'ascensore. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-floors.svg" />  :arrow_up_small: Gestione corretta delle prenotazioni ed arrivo ai piani |
+| :----------------------------------------------------------- |
+| Vengono assegnati **15 punti** se il sistema è in grado di governare correttamente il funzionamento dell'ascensore quando vengono ricevute chiamate ai piani regolari. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-vip.svg" />  :trophy: Gestione corretta piano VIP |
+| :----------------------------------------------------------- |
+| Vengono assegnati **25 punti** se il sistema è in grado di servire in modo appropriato e con la corretta priorità le chiamate ricevute dal piano VIP. |
+
+## Come realizzare il circuito
+
+La soluzione circuitale deve essere inserita all'interno del file `circuito.dig`, che può essere modificato utilizzando l'editor e simulatore di circuiti [Digital](https://github.com/hneemann/Digital). Il simulatore permette anche di testare localmente il circuito, pertanto potete verificare anche localmente la correttezza della soluzione proposta. Se la soluzione viene proposta in un file con *un nome differente*, il punteggio ottenuto sarà zero.
+
+Nel file `circuito.dig` sono già specificati gli ingressi e le uscite del circuito. **Non** rinominare o eliminare questi terminali, altrimenti non sarà possibile valutare l'homework consegnato.
+
+## Suggerimenti
+
+1.   Per misurare il tempo, si può utilizzare un clock impostato ad una frequenza opportuna e "contare" il passaggio del tempo con un numero opportuno di stati. Ad esempio, per contare 5 secondi, si può utilizzare un clock impostato a 1Hz e utilizzare 5 stati. Il clock in `circuito.dig` è già impostato a 1Hz.
+
+2.   È possibile *decomporre* una singola macchina a stati in più macchine a stati che controllino il funzionamento di parti differenti del sistema in maniera coordinata. Lo stato di una macchina a stati può essere utilizzata come input di un'altra. Allo stesso modo, l'output di una macchina a stati può diventare l'input di un'altra. In questo modo, è possibile studiare separatamente i problemi e comporre una soluzione finale.
+
+3.   Le transizioni di stato non sono necessariamente dovute al cambiamento di una sola variabile in ingresso. I "caratteri in input" in questo caso possono corrispondere ad un valore booleano calcolato da una funzione booleana arbitraria, che processa segnali in input al sistema e variabili memorizzate in opportuni elementi di memoria in maniera consona. Alcune transizioni possono essere "automatiche", semplicemente legate alla ricezione di un certo numero di colpi di clock.
