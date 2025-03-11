@@ -1,0 +1,40 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/j5tVyAQ1)
+# :recycle: ​Riconoscitore di stringhe
+
+<img alt="points bar" align="right" height="36" src="../../blob/status/.stats/points-bar.svg" />
+
+Per questo homework, occorre progettare una rete sequenziale in grado di accettare sequenze di caratteri che rispettino il formato $ba(dc)\ast bac$, dove la notazione $\ast$ indica che possono esserci $n$ ripetizioni della sottosequenza $dc$ con $n \in [0,\infty]$. La sequenza di caratteri in input è infinita.
+
+L'alfabeto di input è costituito dai caratteri $I=\{a,b,c,d \}$ rappresentati con le seguenti codifiche:
+
+-   $a=\langle x1=0, x0=0\rangle$;
+-   $b=\langle x1=0, x0=1 \rangle$;
+-   $c=\langle x1=1, x0=1 \rangle$;
+-   $d=\langle x1=1, x0=0 \rangle$.
+
+L'alfabeto di output è costituito dai caratteri $O=\{no, sì\}$ rappresentati con le seguenti codifiche:
+
+-   $no = \langle z=1 \rangle$;
+-   $sì = \langle z=0 \rangle$.
+
+La rete dovrà essere costruita come <ins>macchina di Mealy</ins>.
+
+Si tratta di un homework più semplice dei precedenti, che vi aiuterà a prendere confidenza con le componenti del simulatore che sono necessarie alla realizzazione di una rete sequenziale, in attesa del prossimo.
+
+## Punteggi
+
+Verranno assegnati i seguenti punti per le seguenti parti del compito risolte:
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-accept.svg" />   :green_book: Sequenze accettate correttamente |
+| :----------------------------------------------------------- |
+| Vengono assegnati **3 punti** se il circuito è in grado di accettare o rifiutare correttamente le stringhe ammissibili secondo la definizione dell'espressione. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-overlap.svg" />  :books: Sequenze sovrapposte accettate correttamente |
+| :----------------------------------------------------------- |
+| Vengono assegnati **4 punti** se il circuito è in grado di accettare correttamente anche sequenze *sovrapposte*. Il punteggio massimo per questo homework è quindi pari a 7 punti. |
+
+## Come realizzare il circuito
+
+La soluzione circuitale deve essere inserita all'interno del file `circuito.dig`, che può essere modificato utilizzando l'editor e simulatore di circuiti [Digital](https://github.com/hneemann/Digital). Il simulatore permette anche di testare localmente il circuito, pertanto potete verificare anche localmente la correttezza della soluzione proposta. Se la soluzione viene proposta in un file con *un nome differente*, il punteggio ottenuto sarà zero.
+
+Nel file `circuito.dig` sono già specificati gli ingressi e le uscite del circuito, compresa la *sorgente di clock*. **Non** rinominare o eliminare questi terminali, altrimenti non sarà possibile valutare l'homework consegnato.
