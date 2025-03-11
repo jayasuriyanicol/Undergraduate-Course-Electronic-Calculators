@@ -1,0 +1,78 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/qPx1vpg2)
+# :control_knobs: ALU a 4 bit
+
+<img alt="points bar" align="right" height="36" src="../../blob/status/.stats/points-bar.svg" />
+
+Per questo esercizio, dovete progettare una semplice ALU che sia in grado di lavorare con operandi a 4 bit. La ALU è formata da una rete iterativa---non è necessario implementare ottimizzazioni basate sul parallelismo per questo homework.
+
+### Operazioni supportate
+
+La ALU lavora su uno o due operandi ($a=\langle a3 \  a2 \ a1 \ a0 \rangle$ e $b=\langle b3 \ b2 \ b1 \ b0 \rangle$), a seconda dell'operazione che viene richiesta utilizzando un *opcode*. L'opcode è a 4 bit, decomposto nei bit $op0$, $op1$, $op2$, $op3$. Le operazioni da supportare sono riportate nella seguente tabella. Le operazioni logiche sono operazioni bit a bit.
+
+| $op0$ | $op1$ | $op2$ | $op3$ |                Operazione                |
+| :---: | :---: | :---: | :---: | :--------------------------------------: |
+|   0   |   0   |   0   |   0   |        $a+b$ (somma senza segno)         |
+|   0   |   0   |   0   |   1   | Shift a sinistra di una posizione di $a$ |
+|   0   |   0   |   1   |   0   |               $a$ and $b$                |
+|   0   |   1   |   0   |   0   |                $a$ or $b$                |
+|   0   |   1   |   1   |   0   |               $a \oplus b$               |
+|   1   |   0   |   0   |   0   |               $a \odot b$                |
+|   1   |   0   |   1   |   0   |                 $a \vert b$              |
+|   1   |   1   |   0   |   0   |             $a \downarrow b$             |
+|   1   |   1   |   1   |   0   |              $\overline{a}$              |
+
+Nel caso dell'operazione di shift, il valore in input di $b$ è una *don't care condition*. Nel caso di $\overline{a}$, $b$ può essere assunto forzato a zero. Il circuito restituisce in $cout$ il carry risultante dalla somma tra $a$ e $b$ ed il bit più significativo estratto dall'operazione di shift a sinistra.
+
+## Punteggi
+
+Verranno assegnati i seguenti punti per le seguenti parti del compito risolte:
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-sum.svg" />  :heavy_plus_sign: Somma corretta |
+| :----------------------------------------------------------- |
+| Vengono assegnati **4 punti** se il circuito è in grado di calcolare correttamente la somma senza segno tra $a$ e $b$, aggiornando correttamente anche il bit di carry in uscita. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-shift.svg" />  :arrow_left: shift a sinistra di una posizione di $a$ corretto |
+| :----------------------------------------------------------- |
+| Vengono assegnati **4 punti** se il circuito è in grado di calcolare correttamente lo shift a sinistra di una posizione di $a$ ($b$ è una don't care condition quando si esegue uno shift). Il circuito deve utilizza il bit di carry per riportare il bit più significativo uscente. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-and.svg" /> :heavy_check_mark::heavy_check_mark: Ca​lcolo corretto dell'AND logico |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore dell'AND logico tra gli operandi $a$ e $b$. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-or.svg" />:white_circle: :black_circle: Calcolo corretto dell'OR logico |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore dell'OR logico tra gli operandi $a$ e $b$. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-xor.svg" />:white_circle: :black_circle: :white_circle: Calcolo corretto dello XOR logico |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore dello XOR logico tra gli operandi $a$ e $b$. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-xnor.svg" />:white_check_mark: :heavy_plus_sign: :white_check_mark: / :heavy_multiplication_x: :heavy_plus_sign: :heavy_multiplication_x:  Calcolo corretto dell'XNOR logico |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore dell'XNOR logico tra gli operandi $a$ e $b$. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-nand.svg" />:heavy_check_mark: :heavy_multiplication_x:  Calcolo corretto del NAND logico |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore del NAND logico tra gli operandi $a$ e $b$. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-nor.svg" />:no_entry_sign: :white_circle: :white_circle:  Calcolo corretto del NOR logico |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore del NOR logico tra gli operandi $a$ e $b$. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-not.svg" /> :white_check_mark: :arrow_right: :heavy_multiplication_x: Calcolo corretto della negazione di $a$ |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di calcolare correttamente il valore di $\overline{a}$ (in questo caso $b$ in input deve valere sempre zero). |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-gates.svg" /> 🤯 Complessità circuitale |
+| :----------------------------------------------------------- |
+| Se il circuito individuato è corretto ed il numero di componenti utilizzato è minimo, vengono assegnati **30 punti**. Il punteggio massimo ottenibile con questo homework è quindi pari a 52. |
+
+## Come realizzare il circuito
+
+La soluzione circuitale deve essere inserita all'interno del file `circuito.dig`, che può essere modificato utilizzando l'editor e simulatore di circuiti [Digital](https://github.com/hneemann/Digital). Il simulatore permette anche di testare localmente il circuito, pertanto potete verificare anche localmente la correttezza della soluzione proposta. Se la soluzione viene proposta in un file con *un nome differente*, il punteggio ottenuto sarà zero.
+
+Nel file `circuito.dig` sono già specificati gli ingressi e le uscite del circuito. **Non** rinominare o eliminare questi terminali, altrimenti non sarà possibile valutare l'homework consegnato.
+
+**Non** saranno considerate valide soluzioni che utilizzano sommatori o shifter per supportare queste operazioni. In generale, saranno valutate zero punti (indipendentemente dal risultato del solutore) tutte le soluzioni che non sono iterative.
+
+**<u>Suggerimento</u>**: si consiglia di affrontare il problema per fasi. Ogni operazione richiesta può essere risolta con un sotto-circuito dedicato. Riconoscere delle ricorrenze nei circuiti può aiutare nella minimizzazione. L'utilizzo di ROM o PLA può aiutare *molto* nell'individuazione di una soluzione minima.
