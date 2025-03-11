@@ -1,0 +1,64 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8eflXz9q)
+# :steam_locomotive: Scambio ferroviario
+
+<img alt="points bar" align="right" height="36" src="../../blob/status/.stats/points-bar.svg" />
+
+Per questo homework, si vuole progettare un sistema di scambi per l'ingresso in una stazione ferroviara; alla stazione giunge un unico binario e vi parte un unico binario, ma sono disponibili quattro marciapiedi indicati rispettivamente con $A$, $B$, $C$ e $D$. Ciascun marciapiede ha il relativo binario, come da figura seguente:
+
+```mermaid
+%%{init: { 'logLevel': 'debug', 'theme': 'neutral', 'gitGraph': {'showBranches': true, 'showCommitLabel':false,'mainBranchName': 'Binario1'}} }%%
+      gitGraph
+        commit tag:"S"
+        commit tag:"Y1"
+        branch Binario4 order: 3
+        commit type: HIGHLIGHT tag:"Marciapiede D"
+        checkout Binario1
+        commit tag:"Y2"
+        branch Binario3 order: 2
+        commit type: HIGHLIGHT tag:"Marciapiede C"
+        checkout Binario1
+        commit tag: "Y3"
+        branch Binario2 order: 1
+        commit type: HIGHLIGHT tag:"Marciapiede B"
+        checkout Binario1
+        commit type: HIGHLIGHT tag:"Marciapiede A"
+        merge Binario2
+        merge Binario3
+        merge Binario4
+        commit
+    
+```
+
+Alla stazione arriva un treno per volta, ma i treni possono sostare sui marciapiedi per un tempo arbitrario. Normalmente, un treno in arrivo viene indirizzati verso il marciapiede $A$. Se però questo è occupato, viene indirizzato al marciapiede $B$. Se sono occupati entrambi i marciapiedi $A$ e $B$, il treno viene convogliato al marciapiede $C$; infine, se $A$, $B$ e $C$ sono occupati, il treno viene trasferito al marciapiede $D$. Un marciapiede libero viene rappresentato dal valore 0, mentre un marciapiede occupato viene rappresentato dal valore 1.
+
+Vi è poi un semaforo $S$ che viene tenuto a 1 (verde) se vi sono marciapiedi liberi e portato a 0 (rosso) se sono tutti occupati, al fine di far arrestare un eventuale altro convoglio in arrivo all'ingresso della stazione.
+
+L'indirizzamento dei treni avviene mediante tre scambi:
+
+-   $Y1$ viene portato a 1 se il treno può continuare a transitare sul binario 1, mentre viene portato a $0$ per indicare che il treno deve essere trasferito al binario 4;
+-   $Y2$ viene portato a 1 se il treno può continuare a transitare sul binario 1, mentre viene portato a 0 per indicare che il treno deve essere trasferito al binario 3;
+-   $Y3$ viene portato a 1 se il treno può continuare a transitare sul binario 1, mentre viene portato a 0 per indicare che il treno deve essere trasferito al binario 2.
+
+Progettare il circuito logico che permetta di governare i valori di $Y1$, $Y2$, $Y3$ ed $S$ in funzione dello stato delle altre variabili.
+
+## Punteggi
+
+Verranno assegnati i seguenti punti per le seguenti parti del compito risolte:
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity1.svg" />​ :vertical_traffic_light: Calcolo corretto dei valori di output |
+| :----------------------------------------------------------- |
+| Vengono assegnati 2 punti per ciascuna variabile in output calcolata correttamente, per un massimo di **8 punti**. Consultando la tab Action in alto, è possibile visualizzare il risultato della valutazione per sapere quali variabili sono state calcolate correttamente. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity2.svg" />​  :chart_with_upwards_trend: Lunghezza del critical path |
+| :----------------------------------------------------------- |
+| Se il circuito individuato è corretto per tutte le variabili ed ha il critical path di lunghezza minore possibile, vengono assegnati **4 punti**. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity3.svg" /> 🤯 Complessità circuitale |
+| :----------------------------------------------------------- |
+| Se il numero di porte utilizzate è minimo, vengono assegnati **4 punti**. Il punteggio massimo ottenibile con questo homework è quindi pari a 16. |
+
+## Come realizzare il circuito
+
+Lo studio del problema, l'analisi del circuito e la sua minimizzazione possono essere realizzate su carta. Il circuito ottenuto deve essere inserito all'interno del file `circuito.dig`, che può essere modificato utilizzando l'editor e simulatore di circuiti [Digital](https://github.com/hneemann/Digital). Il simulatore permette anche di testare localmente il circuito, pertanto potete verificare anche localmente la correttezza della soluzione proposta.
+
+Nel file `circuito.dig` sono già specificati gli ingressi e le uscite del circuito. **Non** rinominare questi terminali, altrimenti non sarà possibile valutare l'homework consegnato.
