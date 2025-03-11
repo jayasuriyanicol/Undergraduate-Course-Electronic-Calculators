@@ -1,0 +1,77 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mHfjurYE)
+# :abacus: Circuito per codifica/decodifica Codice di Hamming
+
+<img alt="points bar" align="right" height="36" src="../../blob/status/.stats/points-bar.svg" />
+
+In questo esercizio viene chiesto di progettare e realizzare un circuito per la codifica e decodifica di una parola a 8 bit utilizzando il **Codice di Hamming** con distanza minima di Hamming pari a 3. Il circuito dovrà essere in grado di gestire sia la fase di codifica che quella di decodifica, a seconda dell'operazione richiesta.
+
+Il circuito ha 13 ingressi e 13 uscite, che vengono utilizzate in maniera differente a seconda che esso operi in modalità di codifica o di decodifica. Gli ingressi sono chiamati $d$, $p1$, $p2$, $d1$, $p3$, $d2$, $d3$, $d4$, $p4$, $d5$, $d6$, $d7$, $d8$. Le uscite sono chiamate $e$, $y1 \ldots y12$. L'ingresso $d$ (decode) indica se si opera in modalità di codifica ($d=0$) o di decodifica ($d=1$). Il funzionamento delle due modalità è spiegato qui sotto.
+
+### Modalità di codifica
+
+Quando $d=0$, il circuito opera in modalità di codifica. In questo caso, i bit di input $p1$, $p2$, $p3$, $p4$ sono *don't care conditions* e possono assumere qualsiasi valore. I bit di dati $d1 \ldots d8$ portano il valore che si intende codificare.
+
+Il circuito calcola quindi i valori dei bit di parità secondo un codice di Hamming (12, 8) e riporta in output i seguenti valori:
+
+| Bit in uscita | $y1$                | $y2$                  | $y3$ | $y4$                | $y5$ | $y6$ | $y7$ | $y8$                 | $y9$ | $y10$ | $y11$ | $y12$ | $e$  |
+| ------------- | ------------------- | --------------------- | ---- | ------------------- | ---- | ---- | ---- | -------------------- | ---- | ----- | ----- | ----- | ---- |
+| Valore        | primo bit di parità | secondo bit di parità | $d1$ | terzo bit di parità | $d2$ | $d3$ | $d4$ | quarto bit di parità | $d5$ | $d6$  | $d7$  | $d8$  | 0    |
+
+Ossia, vengono riportati in output i bit dati in ingresso nelle posizioni corrette per la codifica di Hamming adottata e vengono generati i bit di parità (anch'essi posizionati nelle posizioni corrette).
+
+Si noti che, in modalità di codifica, l'uscita $e$ deve essere sempre forzata a zero.
+
+### Modalità di decodifica
+
+Quando $d=1$, il circuito riceve in input una parola codificate secondo il codice di Hamming (12, 8) e fornisce in output il valore decodificato (ed eventualmente corretto). L'output sarà il seguente:
+
+| Bit in uscita | $y1$ | $y2$ | $y3$ | $y4$ | $y5$ | $y6$ | $y7$ | $y8$ | $y9$ | $y10$ | $y11$ | $y12$ | $e$  |
+| ------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ---- |
+| Valore        | $d1$ | $d2$ | $d3$ | $d4$ | $d5$ | $d6$ | $d7$ | $d8$ | 0    | 0     | 0     | 0     | `?`  |
+
+Dove con `?` si intende il codice di errore: $0$ se non è stato rilevato alcun errore di trasmissione, 1 se è stato rilevato almeno un errore.
+
+Nel caso sia stato rilevato un errore, il circuito tenta la correzione: viene utilizzata la sindrome per determinare quale bit è necessario invertire (e si effettua l'inversione). Si noti che il risultato è sensato solo se si è verificato un solo errore.
+
+Si noti che, in modalità di decodifica, i bit di output $y9 \ldots y12$ sono sempre forzati a zero.
+
+### Vincoli
+
+- Utilizzare esclusivamente **porte logiche** di base e **componenti elementari** (encoder, decoder, ...) per la progettazione del circuito.
+- Non è consentito utilizzare componenti predefiniti per la correzione degli errori o circuiti già progettati per il codice di Hamming.
+
+## Punteggi
+
+Verranno assegnati i seguenti punti per le seguenti parti del compito risolte:
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity1.svg" />  :arrow_forward: Codifica corretta |
+| :----------------------------------------------------------- |
+| Vengono assegnati **5 punti** se il circuito è in grado di codificare correttamente tutte le possibili parole a bit utilizzando la codifica di Hamming (12, 8). |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity2.svg" />  :arrow_backward: Decodifica corretta |
+| :----------------------------------------------------------- |
+| Vengono assegnati **5 punti** se il circuito è in grado di decodificare correttamente parole codificate utilizzando il codice di Hamming (12, 8), in cui non siano presenti errori. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity3.svg" />:bangbang:  Rilevamento degli errori corretto |
+| :----------------------------------------------------------- |
+| Vengono assegnati **2 punti** se il circuito è in grado di rilevare che in una parola fornita in input in fase di decodifica sono presenti 1 o 2 errori, anche se non è in grado di correggerli. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity4.svg" />  :currency_exchange: ​Correzione degli errori |
+| :----------------------------------------------------------- |
+| Vengono assegnati **8 punti** se il circuito è in grado correggere la presenza di un errore all'interno di una parola codificata fornita in input.. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity5.svg" />  :chart_with_upwards_trend: Lunghezza del critical path |
+| :----------------------------------------------------------- |
+| Se il circuito individuato è corretto ed ha il critical path di lunghezza minore possibile, vengono assegnati **5 punti**. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity6.svg" /> 🤯 Complessità circuitale |
+| :----------------------------------------------------------- |
+| Se il circuito individuato è corretto ed il numero di componenti utilizzato è minimo, vengono assegnati **10 punti**. Il punteggio massimo ottenibile con questo homework è quindi pari a 35. |
+
+## Come realizzare il circuito
+
+Lo studio del problema, l'analisi del circuito e la sua minimizzazione possono essere realizzate su carta. Il circuito ottenuto deve essere inserito all'interno del file `circuito.dig`, che può essere modificato utilizzando l'editor e simulatore di circuiti [Digital](https://github.com/hneemann/Digital). Il simulatore permette anche di testare localmente il circuito, pertanto potete verificare anche localmente la correttezza della soluzione proposta.
+
+Nel file `circuito.dig` sono già specificati gli ingressi e le uscite del circuito. **Non** rinominare questi terminali, altrimenti non sarà possibile valutare l'homework consegnato.
+
+**<u>Suggerimento</u>**: si consiglia di affrontare il problema per fasi. È possibile realizzare separatamente i circuiti che calcolano l'errore, i bit di parità, la sindrome e successivamente unirli insieme in un'unica realizzazione circuitale. In questo modo è anche più semplice testare la soluzione proposta.
