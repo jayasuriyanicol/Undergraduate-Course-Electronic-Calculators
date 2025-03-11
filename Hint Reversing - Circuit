@@ -1,0 +1,34 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/L4usckdK)
+# :detective: ​Reversing
+
+<img alt="points bar" align="right" height="36" src="../../blob/status/.stats/points-bar.svg" />
+
+Per questo compito dovrete tradurre un programma realizzato in Assembly z64 nell'equivalente in C. Il programma verrà testato automaticamente con degli input validi e non validi, per verificare che il suo comportamento sia corretto. Inoltre, verrà utilizzato un semplice [linter](https://it.wikipedia.org/wiki/Lint_(software)) per valutare la qualità del vostro codice.
+
+Il codice assembly che dovete convertire in C è contenuto nel file `reverse-me.asm`. Tale file può essere anche aperto con il simulatore [z64sim](https://github.com/alessandropellegrini/z64sim), per ispezionarne il funzionamento. È importante però notare che l'input al programma viene passato dal sistema operativo che non è presente nel simulatore: se lo eseguite all'iterno del simulatore, esso non riceverà alcun input.
+
+Il codice del programma C ricostruito deve essere inserito all'interno del file `reversed.c`. All'interno di questo file è presente la firma della funzione `main` ed un'implementazione minimale (non fa nulla) che permette al programma di essere comunque compilato. Il contenuto del `main` dovrà essere modificato per adeguarlo al funzionamento di `reverse-me.asm`.
+
+Nel repository è presente anche un `Makefile`. Tale file può essere utilizzato invocando a riga di comando il programma `make`, per generare l'eseguibile `a.out` che potete testare localmente. La soluzione viene compilata utilizzando il `Makefile`. Non dovete eliminare o modificare questo file.
+
+## Punteggi
+
+Verranno assegnati i seguenti punti per le seguenti parti del compito risolte:
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-accept.svg" />  :heavy_check_mark: Gli input corretti sono riconosciuti |
+| :----------------------------------------------------------- |
+| Vengono assegnati **15 punti** se il programma in C è in grado di riconoscere correttamente gli input al programma considerati validi. |
+
+| <img alt="activity status" align="right" height="24" src="../../blob/status/.stats/activity-reject.svg" />  :x: Gli input non corretti sono riconosciuti |
+| :----------------------------------------------------------- |
+| Vengono assegnati **15 punti** se il programma in C è in grado di riconoscere correttamente gli input al programma considerati invalidi. |
+
+| :bug: Qualità del codice                                     |
+| :----------------------------------------------------------- |
+| Ogni problema sul codice individuato nella vostra soluzione comporterà una decurtazione automatica di **-2 punti**. |
+
+<ins>**ATTENZIONE**</ins>: i programmi C realizzati verranno comunque valutati manualmente per verificare l'aderenza con il codice assembly fornito. In caso di non aderenza, non verrà assegnato alcun punto al compito.
+
+## Come realizzare il programma
+
+**<u>Suggerimento</u>**: come per tutti gli altri compiti, si consiglia di affrontare il problema per fasi. Il programma in `reverse-me.asm` contiene varie funzioni. Potete concentrarvi su una funzione alla volta e poi cercare di incollare insieme la soluzione complessiva.
